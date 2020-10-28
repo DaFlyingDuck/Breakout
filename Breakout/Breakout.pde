@@ -1,10 +1,15 @@
 //Taiki Shickele
 //Breakout
 
+//Arrays
+int i;
+int[] x;
+int[] y;
+int brickd;
+int bricks;
 
-// ball bounce
-
-
+int tempx;
+int tempy;
 
 // mode framework
 int mode;
@@ -13,22 +18,48 @@ final int GAME = 2;
 final int PAUSE = 3;
 final int GAMEOVER = 4;
 
+
 PFont comicsans;
+
 
 //Paddle and Ball variables
 float paddleX;
+float Ball_d;
 PVector Ball;
 PVector Ball_v;
+
 
 //Keyboard variables
 boolean akey, dkey;
 
-int lives;
 
+int lives;
 int timer = 0;
 
 
 void setup() {
+  
+  bricks = 36;
+  x = new int[bricks];
+  y = new int[bricks];
+  brickd = 50;
+  
+  int tempx = 100;
+  int tempy = 100;
+  int i = 0;
+  while (i < bricks) {
+    x[i] = tempx;
+    y[i] = tempy;
+    tempx += 100;
+    
+    if (tempx == 1000) {
+      tempy += 100;
+      tempx = 100;
+    }
+    
+    i ++;
+  }
+  
   
   size(1000, 750);
   textAlign(CENTER, CENTER);
@@ -41,6 +72,7 @@ void setup() {
   // initialize ball and paddle
   rectMode(CENTER);
   paddleX = width/2;
+  Ball_d = 20;
   Ball = new PVector(width/2, height * 5/8);
   
   

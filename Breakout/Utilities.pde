@@ -1,13 +1,35 @@
 void collision() {
   
+  
+  //---------------------------Paddle--------------------------------------------------------------------------------
+  
+  
+  //Keep paddle within walls
   if (paddleX - 100 < 0) paddleX = 100;
   if (paddleX + 100 > 1000) paddleX = 900;
   
   
+  // ----------------------------Ball---------------------------------------------------------------------------------
+  
+  // Ball Scores
   if (Ball.y > 740) {
     reset();
     lives --;
   }
+  
+  
+  // Wall Collision
+  if (Ball.y < Ball_d/2) {
+    Ball.y = 10;
+    Ball_v.y = Ball_v.y * -1.;
+  } else if (Ball.x < Ball_d/2) {
+    Ball.x = 10;
+    Ball_v.x = Ball_v.x * -1.;
+  } else if (Ball.x > 1000 - Ball_d/2) {
+    Ball.x = 990;      
+    Ball_v.x = Ball_v.x * -1.;
+  }
+    
   
   
 }
