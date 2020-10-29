@@ -13,12 +13,12 @@ void game() {
   int i = 0;
   while (i < bricks) {
     //draw brick
-    circle(x[i], y[i], brickd);
+    rect(x[i], y[i], brickw, brickl);
     
     // bounce on brick
-    if (dist(Ball.x, Ball.y, x[i], y[i]) < Ball_d/2 + brickd/2) {
-      Ball_v.x = (Ball.x - x[i])/20;
-      Ball_v.y = (Ball.y - y[i])/20;
+    if ((Ball.x > x[i] - brickw/2 - Ball_d && Ball.x < x[i] + brickw/2 + Ball_d) && (Ball.y > y[i] - brickl/2 - Ball_d && Ball.y < y[i] + brickl/2 + Ball_d)) {
+      //if ball is in certain area collide from each side
+      println("collisionbrrrrrrrrrrrrrrr" + i);
     }
     
     i ++;
@@ -28,7 +28,7 @@ void game() {
   
   
   //lives counter
-  fill(120);
+  fill(100);
   textSize(20);
   text(lives, paddleX, 680);
   

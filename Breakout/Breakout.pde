@@ -5,7 +5,9 @@
 int i;
 int[] x;
 int[] y;
-int brickd;
+float brickw;
+float brickl;
+
 int bricks;
 
 int tempx;
@@ -36,13 +38,17 @@ boolean akey, dkey;
 int lives;
 int timer = 0;
 
+//Collision variables
+PVector Angle;
+
 
 void setup() {
   
-  bricks = 36;
+  bricks = 63;
   x = new int[bricks];
   y = new int[bricks];
-  brickd = 50;
+  brickw = 80;
+  brickl = 40;
   
   int tempx = 100;
   int tempy = 100;
@@ -53,7 +59,7 @@ void setup() {
     tempx += 100;
     
     if (tempx == 1000) {
-      tempy += 100;
+      tempy += 50;
       tempx = 100;
     }
     
