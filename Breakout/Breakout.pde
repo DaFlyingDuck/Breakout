@@ -5,6 +5,7 @@
 int i;
 int[] x;
 int[] y;
+boolean brickhit[];
 float brickw;
 float brickl;
 
@@ -47,6 +48,7 @@ void setup() {
   bricks = 63;
   x = new int[bricks];
   y = new int[bricks];
+  brickhit = new boolean[bricks];
   brickw = 80;
   brickl = 40;
   
@@ -57,7 +59,8 @@ void setup() {
     x[i] = tempx;
     y[i] = tempy;
     tempx += 100;
-    
+    brickhit[i] = false;
+ 
     if (tempx == 1000) {
       tempy += 50;
       tempx = 100;

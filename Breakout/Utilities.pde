@@ -3,9 +3,9 @@ void reset() {
   
   timer = 0;
   Ball = new PVector(width/2, height * 5/8);
-  Ball_v = new PVector(0, 0);
+  Ball_v = new PVector(random(-2.5, 2.5), random(-2.5, 2.5));
   while ((Ball_v.x > -1.5 && Ball_v.x < 1.5) || (Ball_v.y > -1.5 && Ball_v.y < 1.5)) {
-    Ball_v = new PVector(random(-3, 3), random(-3, 3));
+    Ball_v = new PVector(random(-2.5, 2.5), random(-2.5, 2.5));
   }
   
   
@@ -55,23 +55,25 @@ void collision() {
     Ball_v.x = Ball_v.x * -1.;
   }
     
-  if (Ball.y > 680 - 12.5 && Ball.y < 680 + 12.5) {
     
-    if (Ball.x > paddleX - 100 && Ball.x <= paddleX) {
+  // Collision with paddle
+  if (Ball.y > 680 - Ball_d/2 && Ball.y < 680) {
+    
+    if (Ball.x > paddleX - 110 && Ball.x <= paddleX) {
       
        Angle = new PVector(0, -1);
-       Angle.rotate(-radians(map(Ball.x, paddleX - 100, paddleX, 25, 55)));
-       println(map(Ball.x, paddleX - 100, paddleX, 20, 55));
+       Angle.rotate(-radians(map(Ball.x, paddleX - 110, paddleX, 50, 25)));
+       println(map(Ball.x, paddleX - 100, paddleX, 50, 25));
        Angle.setMag(Ball_v.mag());
        Ball_v = new PVector(Angle.x, Angle.y);
        
     }
     
-    if (Ball.x > paddleX && Ball.x < paddleX + 100) {
+    if (Ball.x > paddleX && Ball.x < paddleX + 110) {
       
       Angle = new PVector(0, -1);
-      Angle.rotate(radians(map(Ball.x, paddleX, paddleX + 100, 25, 55)));
-      println(map(Ball.x, paddleX, paddleX + 100, 20, 55));
+      Angle.rotate(radians(map(Ball.x, paddleX, paddleX + 110, 25, 50)));
+      println(map(Ball.x, paddleX, paddleX + 100, 25, 50));
       Angle.setMag(Ball_v.mag());
       Ball_v = new PVector(Angle.x, Angle.y);
     }
