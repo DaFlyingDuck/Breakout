@@ -13,7 +13,7 @@ void game() {
   int i = 0;
   while (i < bricks) {
     //draw brick
-    if (bricklives[i] != 0) {
+    if (bricklives[i] > 0) {
       fill(colour[i]);
       rect(x[i], y[i], brickw, brickl);
 
@@ -25,21 +25,38 @@ void game() {
         if (Ball.y < y[i] - brickl/2 && Ball.y > y[i] - brickl/2 - Ball_d/2 && Ball_v.y > 0) {
           Ball_v.y = Ball_v.y * -1;
           bricklives[i] = bricklives[i] - 1;
+          colour[i] -= 40;
         }
         //bottom edge bounce 
         if (Ball.y > y[i] + brickl/2 && Ball.y < y[i] + brickl/2 + Ball_d/2 && Ball_v.y < 0) {
           Ball_v.y = Ball_v.y * -1;
           bricklives[i] = bricklives[i] - 1;
+          colour[i] -= 40;
+          
         }
         //left edge bounce
         if (Ball.x < x[i] - brickw/2 && Ball.x > x[1] - brickw/2 - Ball_d/2 && Ball_v.x > 0) {
           Ball_v.x = Ball_v.x * -1;
-          bricklives[i] = bricklives[i] - 1;
+          
+          if (Ball.y < y[i] - brickl/2 && Ball.y > y[i] - brickl/2 - Ball_d/2 && Ball_v.y > 0) { // makes it didnt hit top
+          } else if (Ball.y > y[i] + brickl/2 && Ball.y < y[i] + brickl/2 + Ball_d/2 && Ball_v.y < 0) { // makes sure it didnt hit bottom
+          } else {
+            bricklives[i] = bricklives[i] - 1;
+            colour[i] -= 40;
+          }
+          
         }
         //right edge bounce
         if (Ball.x > x[i] + brickw/2 && Ball.x < x[i] + brickw/2 + Ball_d/2 && Ball_v.x < 0) {
           Ball_v.x = Ball_v.x * -1;
-          bricklives[i] = bricklives[i] - 1;
+          
+          if (Ball.y < y[i] - brickl/2 && Ball.y > y[i] - brickl/2 - Ball_d/2 && Ball_v.y > 0) { // makes it didnt hit top
+          } else if (Ball.y > y[i] + brickl/2 && Ball.y < y[i] + brickl/2 + Ball_d/2 && Ball_v.y < 0) { // makes sure it didnt hit bottom
+          } else {
+            bricklives[i] = bricklives[i] - 1;
+            colour[i] -= 40;
+          }
+          
         }
 
         println("collisionbrrrrrrrrrrrrrrr" + i + "    " + brickhit[i]);

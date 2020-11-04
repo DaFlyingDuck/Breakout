@@ -63,6 +63,7 @@ void setup() {
   int tempy = 100;
   int tempcolor = 255;
   int templives = 3;
+  int tempcount = 0;
   int i = 0;
   
   while (i < bricks) {
@@ -78,9 +79,11 @@ void setup() {
       tempy += 50;
       tempx = 100;
       tempcolor -= 40;
+      tempcount ++;
       
-      if (templives > 1) {
+      if (templives > 1 && tempcount == 2) {
         templives --;
+        tempcount = 0;
       }
       
     }
