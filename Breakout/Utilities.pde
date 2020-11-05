@@ -7,7 +7,7 @@ void reset() {
   while ((Ball_v.x > -1.5 && Ball_v.x < 1.5) || (Ball_v.y > -1.5 && Ball_v.y < 1.5)) {
     Ball_v = new PVector(random(-2.5, 2.5), random(-2.5, 2.5));
   }
-  
+  paddleX = width/2;
   
 }
 
@@ -66,6 +66,8 @@ void collision() {
        println(map(Ball.x, paddleX - 100, paddleX, 50, 25));
        Angle.setMag(Ball_v.mag());
        Ball_v = new PVector(Angle.x, Angle.y);
+       bounce.play();
+       bounce.rewind();
        
     }
     
@@ -76,6 +78,8 @@ void collision() {
       println(map(Ball.x, paddleX, paddleX + 100, 25, 50));
       Angle.setMag(Ball_v.mag());
       Ball_v = new PVector(Angle.x, Angle.y);
+      bounce.play();
+      bounce.rewind();
     }
   
   }

@@ -1,7 +1,16 @@
 //Taiki Shickele
 //Breakout
 
-//visual indication for how many lives the brick has left
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+Minim minim;
+AudioPlayer intro, theme, breaks, bounce, win, loss;
+
 
 //Arrays
 int i;
@@ -9,7 +18,6 @@ int[] x;
 int[] y;
 int[] colour;
 int [] bricklives;
-boolean brickhit[];
 float brickw;
 float brickl;
 
@@ -28,6 +36,7 @@ final int GAMEOVER = 4;
 
 
 PFont comicsans;
+int flashing;
 
 
 //Paddle and Ball variables
@@ -43,21 +52,30 @@ boolean akey, dkey;
 
 int lives;
 int timer = 0;
+int score;
 
 //Collision variables
 PVector Angle;
 
+//Gif Arrays
+PImage[] gif;
+int numberOfFrames;
+int f;
+
 
 void setup() {
   
-  bricks = 63;
+  bricks = 63; // 63
   x = new int[bricks];
   y = new int[bricks];
   colour = new int[bricks];
   bricklives = new int[bricks];
-  brickhit = new boolean[bricks];
   brickw = 80;
   brickl = 40;
+  
+  
+  
+  // Brick arrays
   
   int tempx = 100;
   int tempy = 100;
@@ -73,16 +91,15 @@ void setup() {
     colour[i] = tempcolor;
     bricklives[i] = templives;
     tempx += 100;
-    brickhit[i] = false;
  
     if (tempx == 1000) {
       tempy += 50;
       tempx = 100;
-      tempcolor -= 40;
       tempcount ++;
       
       if (templives > 1 && tempcount == 2) {
         templives --;
+        if (tempcolor > 100) tempcolor -= 100;
         tempcount = 0;
       }
       
@@ -93,13 +110,36 @@ void setup() {
   }
   
   
-  size(1000, 750);
+  
+  //Gif
+  numberOfFrames = 16;
+  gif = new PImage[numberOfFrames];
+  
+  i = 0;
+  while (i < numberOfFrames) {
+    gif[i] = loadImage("frame_"+i+"_delay-0.03s.gif");
+    i ++;
+    
+  }
+
+  
+  size(1000, 750, FX2D);
   textAlign(CENTER, CENTER);
   frameRate(120);
   mode = INTRO;
   
   comicsans = loadFont("ComicSansMS-Bold-48.vlw");
   textFont(comicsans, 48);
+  
+  //Minim
+  minim = new Minim(this);
+  intro = minim.loadFile("nyancat.mp3");
+  theme = minim.loadFile("theme.mp3");
+  breaks = minim.loadFile("break.mp3");
+  bounce = minim.loadFile("bounce.mp3");
+  win = minim.loadFile("CrabRave.mp3");
+  loss = minim.loadFile("Loss.mp3");
+  
   
   // initialize ball and paddle
   rectMode(CENTER);
